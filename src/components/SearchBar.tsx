@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -15,8 +15,8 @@ export function SearchBar() {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       setResponse('Here are some results for your search...');
-    } catch (error) {
-      console.error('Search error:', error);
+    } catch (error: unknown) {
+      console.error('Search error:', error instanceof Error ? error.message : 'Unknown error');
     } finally {
       setIsLoading(false);
     }
@@ -46,6 +46,8 @@ export function SearchBar() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-4 py-3 bg-transparent border-none focus:ring-2 focus:ring-primary/20 rounded-xl placeholder-gray-400"
+              aria-label="Search input"
+              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
             />
           </motion.div>
           <motion.button
@@ -53,9 +55,11 @@ export function SearchBar() {
             className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Search button"
+            disabled={isLoading}
           >
-            <Search className="w-5 h-5" />
-            <span>Search</span>
+            <Search className="w-5 h-5" aria-hidden="true" />
+            <span>{isLoading ? 'Searching...' : 'Search'}</span>
           </motion.button>
         </div>
         
@@ -66,6 +70,8 @@ export function SearchBar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              role="status"
+              aria-live="polite"
             >
               <motion.div
                 className="flex items-center gap-3"
@@ -91,6 +97,8 @@ export function SearchBar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
+            role="region"
+            aria-label="Search results"
           >
             <motion.div
               className="p-4 hover:bg-primary/5 transition-colors cursor-pointer"
