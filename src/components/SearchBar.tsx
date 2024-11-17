@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -11,7 +11,7 @@ export function SearchBar() {
     if (!searchQuery.trim()) return;
 
     setIsLoading(true);
-    setResponse(''); // Clear previous response
+    setResponse('');
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -59,47 +59,31 @@ export function SearchBar() {
         </div>
       </motion.div>
       
-      <AnimatePresence mode="wait">
-        {isLoading && (
-          <motion.div
-            key="loading"
-            className="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-2xl z-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            role="status"
-            aria-live="polite"
-          >
-            <div className="flex items-center gap-3">
-              <motion.div
-                className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              />
-              <span className="text-gray-600">Searching Diani...</span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isLoading && (
+        <div
+          className="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-2xl z-10"
+          role="status"
+          aria-live="polite"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+            <span className="text-gray-600">Searching Diani...</span>
+          </div>
+        </div>
+      )}
       
-      <AnimatePresence mode="wait">
-        {response && (
-          <motion.div
-            key="response"
-            className="glass-effect mt-4 rounded-2xl divide-y divide-gray-100"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            role="region"
-            aria-label="Search results"
-          >
-            <div className="p-4 hover:bg-primary/5 transition-colors cursor-pointer">
-              <h3 className="font-medium mb-1">Result</h3>
-              <p className="text-sm text-gray-600">{response}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {response && (
+        <div
+          className="glass-effect mt-4 rounded-2xl divide-y divide-gray-100"
+          role="region"
+          aria-label="Search results"
+        >
+          <div className="p-4 hover:bg-primary/5 transition-colors cursor-pointer">
+            <h3 className="font-medium mb-1">Result</h3>
+            <p className="text-sm text-gray-600">{response}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
