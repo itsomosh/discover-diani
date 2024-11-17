@@ -47,7 +47,7 @@ export function SearchBar() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-4 py-3 bg-transparent border-none focus:ring-2 focus:ring-primary/20 rounded-xl placeholder-gray-400"
               aria-label="Search input"
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
           </motion.div>
           <motion.button
