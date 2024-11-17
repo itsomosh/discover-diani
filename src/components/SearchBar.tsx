@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Search } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -25,13 +24,7 @@ export function SearchBar() {
 
   return (
     <div className="relative w-full max-w-4xl mx-auto">
-      <motion.div
-        className="glass-effect rounded-2xl p-4 shadow-xl"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        whileHover={{ scale: 1.02 }}
-      >
+      <div className="glass-effect rounded-2xl p-4 shadow-xl transition-transform hover:scale-[1.02]">
         <div className="flex items-center gap-4">
           <div className="flex-1">
             <input
@@ -44,20 +37,18 @@ export function SearchBar() {
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
           </div>
-          <motion.button
+          <button
             type="button"
             onClick={handleSearch}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl transition-transform hover:scale-105 active:scale-95"
             aria-label="Search button"
             disabled={isLoading}
           >
             <Search className="w-5 h-5" aria-hidden="true" />
             <span>{isLoading ? 'Searching...' : 'Search'}</span>
-          </motion.button>
+          </button>
         </div>
-      </motion.div>
+      </div>
       
       {isLoading && (
         <div
