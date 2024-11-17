@@ -28,7 +28,11 @@ try {
 const ai = new OpenAI({
     apiKey: import.meta.env.VITE_GROK_API_KEY,
     baseURL: 'https://api.x.ai/v1',
-    dangerouslyAllowBrowser: true // Enable browser usage
+    dangerouslyAllowBrowser: true, // Enable browser usage
+    defaultHeaders: {
+        'Content-Type': 'application/json',
+    },
+    defaultQuery: undefined
 });
 
 const gemini = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
