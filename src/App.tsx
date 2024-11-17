@@ -7,16 +7,15 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { BusinessRegistrationModal } from './components/BusinessRegistrationModal';
 import AISearch from './components/AISearch';
-import BusinessRegistrationForm from './components/BusinessRegistration/BusinessRegistrationForm';
 import { AuthButton } from './components/auth/AuthButton';
 
-function App() {
+const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isBusinessModalOpen, setBusinessModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 0);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -27,20 +26,19 @@ function App() {
       <AuthProvider>
         <div className="flex flex-col min-h-screen">
           <Navbar isScrolled={isScrolled}>
-            <div className="ml-auto">
-              <AuthButton />
-            </div>
+            <AuthButton />
           </Navbar>
+          
           <main className="flex-grow">
             <div className="container mx-auto px-4">
               <h1 className="text-4xl font-bold text-center my-8">Discover Diani</h1>
               <AISearch />
             </div>
-            <AppRoutes 
-              onRegisterClick={() => setBusinessModalOpen(true)} 
-            />
+            <AppRoutes />
           </main>
+
           <Footer />
+          
           <BusinessRegistrationModal 
             isOpen={isBusinessModalOpen} 
             onClose={() => setBusinessModalOpen(false)} 
@@ -50,6 +48,6 @@ function App() {
       </AuthProvider>
     </Router>
   );
-}
+};
 
 export default App;

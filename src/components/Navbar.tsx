@@ -7,7 +7,7 @@ interface NavbarProps {
   children?: React.ReactNode;
 }
 
-export function Navbar({ isScrolled, children }: NavbarProps) {
+const Navbar: React.FC<NavbarProps> = ({ isScrolled, children }) => {
   const location = useLocation();
 
   const navItems = [
@@ -52,4 +52,6 @@ export function Navbar({ isScrolled, children }: NavbarProps) {
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;
