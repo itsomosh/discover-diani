@@ -100,8 +100,8 @@ Please respond in a structured format with confidence scores.`;
                 { inlineData: { data: base64data, mimeType: "image/jpeg" } }
             ]);
 
-            const response = await result.response;
-            const text = response.text();
+            const geminiResponse = await result.response;
+            const text = geminiResponse.text();
 
             // Parse the response to determine validity
             const isNameMatch = text.toLowerCase().includes(fullName.toLowerCase());
