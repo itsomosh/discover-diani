@@ -33,3 +33,6 @@ yarn-error.log*
 .env
 .env.*
 !.env.example
+
+# Firebase
+*-firebase-adminsdk-*.json
