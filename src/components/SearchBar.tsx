@@ -11,6 +11,7 @@ export function SearchBar() {
     if (!searchQuery.trim()) return;
 
     setIsLoading(true);
+    setResponse(''); // Clear previous response
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -44,6 +45,7 @@ export function SearchBar() {
             />
           </div>
           <motion.button
+            type="button"
             onClick={handleSearch}
             className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl"
             whileHover={{ scale: 1.05 }}
@@ -61,7 +63,7 @@ export function SearchBar() {
         {isLoading && (
           <motion.div
             key="loading"
-            className="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-2xl"
+            className="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-2xl z-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
