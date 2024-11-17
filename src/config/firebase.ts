@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { getAnalytics } from 'firebase/analytics';
+import { getAnalytics, Analytics, AnalyticsOptions } from 'firebase/analytics';
 
 const firebaseConfig = {
   // Replace these with your Firebase config values
@@ -23,7 +23,12 @@ export const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
 
-// Initialize Analytics
-export const analytics = getAnalytics(app);
+// Initialize Analytics with cookie settings
+const analyticsOptions: AnalyticsOptions = {
+  config: {
+    cookie_flags: 'SameSite=None;Secure'
+  }
+};
+export const analytics: Analytics = getAnalytics(app, analyticsOptions);
 
 export default app;

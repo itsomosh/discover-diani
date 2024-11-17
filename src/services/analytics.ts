@@ -1,8 +1,12 @@
 import mixpanel from 'mixpanel-browser';
 import { analytics } from '../config/firebase';
 
-// Initialize Mixpanel
-mixpanel.init(import.meta.env.VITE_MIXPANEL_TOKEN || 'your-mixpanel-token');
+// Initialize Mixpanel with cookie settings
+mixpanel.init(import.meta.env.VITE_MIXPANEL_TOKEN || 'your-mixpanel-token', {
+    cookie_domain: '.discoverdiani.com',
+    cross_site_cookie: true,
+    secure_cookie: true
+});
 
 // Performance thresholds
 const PERFORMANCE_THRESHOLDS = {
